@@ -22,6 +22,10 @@ var commands = []*discordgo.ApplicationCommand{
 		Description: "Высылает медийку по вышу душу",
 	},
 	{
+		Name:        "akula",
+		Description: "Высылает Акулу по вышу душу",
+	},
+	{
 		Name:        "add_media",
 		Description: "Добавить медиа файл по ссылке",
 		Options: []*discordgo.ApplicationCommandOption{
@@ -68,6 +72,11 @@ func Start() {
 		log.Fatalf("Error loading images: %v", err)
 		return
 	}
+	messageHandler.SliceOfAkula, err = storage.LoadImages(messageHandler.AkulaPath)
+	if err != nil {
+		log.Fatalf("Error loading Akulas!: %v", err)
+		return
+	}
 	messageHandler.BotId = user.ID
 
 	// добавляем хэндлеры, они отвечают за ответ на запросы
@@ -75,9 +84,22 @@ func Start() {
 	goBot.AddHandler(messageHandler.Commands)
 
 	err = goBot.Open()
-
 	if err != nil {
 		log.Println("Error opening Discord session,", err)
+		return
+	}
+
+	err = goBot.UpdateStatusComplex(discordgo.UpdateStatusData{
+		Activities: []*discordgo.Activity{
+			{
+				Name: "BYOND.com",
+				Type: discordgo.ActivityTypeWatching,
+			},
+		},
+		Status: "dnd",
+	})
+	if err != nil {
+		log.Println("Error updating Discord status,", err)
 		return
 	}
 

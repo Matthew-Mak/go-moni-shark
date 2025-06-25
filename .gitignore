@@ -24,3 +24,8 @@ vendor/
 
 coverage.html
 .env
+
+# Configs
+/config.json
+
+# Storage files

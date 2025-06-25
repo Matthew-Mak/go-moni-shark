@@ -9,7 +9,8 @@ import (
 )
 
 var (
-	goBot *discordgo.Session
+	goBot   *discordgo.Session
+	guildID string = "1352324363952717856"
 )
 
 var commands = []*discordgo.ApplicationCommand{
@@ -39,6 +40,24 @@ var commands = []*discordgo.ApplicationCommand{
 	},
 }
 
+func cleanupCommands(s *discordgo.Session, appID string) {
+	commands, err := s.ApplicationCommands(appID, guildID)
+	if err != nil {
+		log.Println("Error getting commands:", err)
+		return
+	}
+
+	for _, cmd := range commands {
+		err = s.ApplicationCommandDelete(appID, guildID, cmd.ID)
+		if err != nil {
+			log.Println("Error deleting command:", cmd.ID, "Err: ", err)
+			return
+		} else {
+			log.Println("Command deleted:", cmd.ID)
+		}
+	}
+}
+
 func Start() {
 	goBot, err := discordgo.New("Bot " + config.Token)
 	if err != nil {
@@ -53,12 +72,15 @@ func Start() {
 		return
 	}
 
+	// чистим команды на случай если остались вырезанные
+	cleanupCommands(goBot, config.AppId)
+
 	// создаём команды
 	for _, cmd := range commands {
 		_, err := goBot.ApplicationCommandCreate(
 			//config.GuildID, // или "" для глобальной команды (будет доступна везде, но дольше распространяется)
 			config.AppId,
-			"1352324363952717856", // пустая строка = глобально; или укажите ID гильдии
+			guildID, // пустая строка = глобально; или укажите ID гильдии
 			cmd,
 		)
 		if err != nil {

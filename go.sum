@@ -1,3 +1,5 @@
+github.com/alfredosa/GoDiscordBot v0.0.0-20231013073230-ee8cbfba8851 h1:G9vbZyaRvceE4CWQfB1lIWvXSnRG9mDEO65uXDcLfsc=
+github.com/alfredosa/GoDiscordBot v0.0.0-20231013073230-ee8cbfba8851/go.mod h1:GSlWRHSvBNaMzYJN2R0ydOMpWzR71ECDq0qZNs5CwCs=
 github.com/bwmarrin/discordgo v0.29.0 h1:FmWeXFaKUwrcL3Cx65c20bTRW+vOb6k8AnaP+EgjDno=
 github.com/bwmarrin/discordgo v0.29.0/go.mod h1:NJZpH+1AfhIcyQsPeuBKsUtYrRnjkyu0kIVMCHkZtRY=
 github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=

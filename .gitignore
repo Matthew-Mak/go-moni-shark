@@ -26,6 +26,6 @@ coverage.html
 .env
 
 # Configs
-config.json
+/config.json
 
 # Storage files

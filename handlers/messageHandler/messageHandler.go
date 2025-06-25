@@ -13,7 +13,9 @@ import (
 var (
 	BotId         string
 	SliceOfImages []images.Image
+	SliceOfAkula  []images.Image
 	ImagesPath    string = "../storage/images.txt"
+	AkulaPath     string = "../storage/akula.txt"
 )
 
 func Ping(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -64,6 +66,21 @@ func Commands(s *discordgo.Session, i *discordgo.InteractionCreate) {
 			log.Printf("Failed to respond to /media: %v", err)
 		}
 		log.Println("Media is up!" + SliceOfImages[randomIndex].Link)
+	case "akula":
+		src := rand.NewSource(time.Now().UnixNano())
+		randomInt := rand.New(src)
+		randomIndex := randomInt.Intn(len(SliceOfAkula))
+
+		err := s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
+			Type: discordgo.InteractionResponseChannelMessageWithSource,
+			Data: &discordgo.InteractionResponseData{
+				Content: SliceOfAkula[randomIndex].Link,
+			},
+		})
+		if err != nil {
+			log.Printf("Failed to respond to /media: %v", err)
+		}
+		log.Println("Media is up!" + SliceOfAkula[randomIndex].Link)
 	case "add_media":
 		var link string
 		for _, opt := range i.ApplicationCommandData().Options {

@@ -114,8 +114,8 @@ func Start() {
 	err = goBot.UpdateStatusComplex(discordgo.UpdateStatusData{
 		Activities: []*discordgo.Activity{
 			{
-				Name: "BYOND.com",
-				Type: discordgo.ActivityTypeWatching,
+				Name: "hopes and dreams",
+				Type: discordgo.ActivityTypeListening,
 			},
 		},
 		Status: "dnd",
